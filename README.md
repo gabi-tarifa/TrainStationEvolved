@@ -17,5 +17,5 @@ This project tries to remake (with upgrades and mix of features, of course) one 
   - Maglev locomotives' wagons have a absurd high profit bonus, however these locomotives are way less powerfull in terms of wagon carring;
   - Hyperloop locomotives give exclusive materials, which are essential for specific factories materials, which wouldn’t be obtained by any other locomotives. However, the don’t have any profit bonus, such as Steam locomotives.
 - There will be connectivity with other types transportation, like airports, ports and highway terminals, and each of them will have its bonus as well;
-- Locomotives can be bought, upgraded, sold or dismantled, you mustn't dismantle a train which only has a limited ammount;
+- Locomotives can be bought, upgraded, sold or dismantled, you mustn't dismantle a train which only has a limited ammount; (still thing with that)
 - Trains can be automatically built or by the player, according to necessity and efficiency at the time;
