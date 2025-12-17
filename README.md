@@ -1,7 +1,7 @@
 # TrainStationEvolved
 After some thinking, im gonna change the engine behind TSE before actually starting the heavy work... So need to start again, but things are better planned right now...
 
-## TrainStationEvolvedProject
+## TrainStation Evolved
 For everyone who found my github, welcome y'all!!
 This project tries to remake (with upgrades and mix of features, of course) one of Pixel Federation's biggest game sucess ever: TrainStation - Game on Rails, mixed with some feature from TrainStation 2 and TrainStation 3, as well some exclusive features.
 
