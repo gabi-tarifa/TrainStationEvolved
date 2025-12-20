@@ -31,7 +31,7 @@ class Material(db.Model):
 
     id_material = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Integer, nullable=False)
-    icon = db.Column(db.String(255), nullable=False, default="icon/mat.png")
+    icon = db.Column(db.String(255), nullable=False, default="icon/materialmat.png")
     kind = db.Column(db.String(20), nullable=False)
     unlocking_level = db.Column(db.Integer, nullable=False)
 
