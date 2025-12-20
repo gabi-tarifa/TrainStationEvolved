@@ -89,11 +89,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
             });
 
             if (response.ok) {
-                window.location.href = "/game"; // Redireciona após cadastro
+                window.location.href = "/"; // Redireciona após cadastro
+            } else {
+                texto.textContent = "Não foi possível encontrar o usuário, tente novamente";
+                email.focus();
             }
         } catch (error) {
-            texto.textContent = "Não foi possível encontrar o usuário, tente novamente";
-            email.focus();
+                texto.textContent = "Falha na conexão. Tente novamente mais tarde";
         }
     })
 });

@@ -22,10 +22,10 @@ with app.app_context():
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = "login_page"
+login_manager.login_view = "index"
 login_manager.login_message_category = "info"
 
-@app.route("/")
+@app.route("/welcome")
 def index():
     return render_template("index.html")
 
@@ -41,7 +41,7 @@ def logout():
     flash("Você saiu da sua conta.", "info")
     return redirect(url_for("login_page"))  
 
-@app.route("/game")
+@app.route("/")
 @login_required
 def mapa():
     return "Mapa do jogo aqui!!"
@@ -90,8 +90,6 @@ def login():
 
     if user and check_password_hash(user.password, password):
         login_user(user)
-
-        print("Usuario logado :) ")
         
         return jsonify({"message":"Login efetuado com sucesso!"}), 200
     else:
