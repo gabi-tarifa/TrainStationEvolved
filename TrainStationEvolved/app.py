@@ -6,6 +6,9 @@ from flask_cors import CORS
 from models import db, User
 import pymysql
 from werkzeug.security import generate_password_hash, check_password_hash
+from setup.setup_destinations import create_destinations
+from setup.setup_typeloco import create_typeloco
+from setup.setup_materials import create_materials
 
 
 app = Flask(__name__)
@@ -19,6 +22,9 @@ db.init_app(app)
 
 with app.app_context():
     db.create_all()
+    create_destinations()
+    create_typeloco()
+    create_materials()
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -44,7 +50,7 @@ def logout():
 @app.route("/")
 @login_required
 def mapa():
-    return "Mapa do jogo aqui!!"
+    return render_template("game.html")
 
 @app.route("/login")
 def login_page():

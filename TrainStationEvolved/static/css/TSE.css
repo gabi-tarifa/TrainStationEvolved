@@ -1,0 +1,87 @@
+body.index {
+    background-image:url( "../img/bgPages/bgindex.jpg" );
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 35%;
+    width: 100vw;
+    height: 100vh;
+    align-content: center;
+    justify-items: center;
+
+}
+
+.divisor {
+  width: 100%;
+  text-align: center;
+  margin: 10px 0;
+  color: #292929;
+  position: relative;
+}
+
+.divisor::before,
+.divisor::after {
+  content: "";
+  height: 1px;
+  background: #292929;
+  width: 40%;
+  position: absolute;
+  top: 50%;
+}
+
+.divisor::before { left: 0; }
+.divisor::after { right: 0; }
+
+.container.index{
+    align-items: center;
+    align-content: center;
+    background-color: rgba(94, 223, 246, 0.30);
+    height: min-content;
+    width: max-content;
+    padding: 30px;
+    border-radius: 30px;
+}
+
+
+.social {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+.social button {
+    flex: 1;
+    background-color: #273a64;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 10px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.social button img {
+    width: 18px;
+}
+
+.central_content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.central_content > div {
+    flex: 1;                 /* 50% / 50% */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* centraliza vertical */
+    align-items: center;     /* centraliza horizontal */
+    gap: 10px;
+}
+.container.index button{
+    padding: 10px;
+}

@@ -30,7 +30,7 @@ class Material(db.Model):
     __tablename__ = "Material"
 
     id_material = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Integer, nullable=False)
+    name = db.Column(db.String(50), nullable=False)
     icon = db.Column(db.String(255), nullable=False, default="icon/materialmat.png")
     kind = db.Column(db.String(20), nullable=False)
     unlocking_level = db.Column(db.Integer, nullable=False)
@@ -73,7 +73,7 @@ class Locomotive(db.Model):
     id_loco = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     id_type = db.Column(db.Integer, ForeignKey("TypeLoco.id_type"), nullable=False)
-    model = db.Column(db.String(255), nullable=False, default="icon/trainmodels/train.png")
+    model = db.Column(db.String(255), nullable=False, default="models/loco/train.png")
 
 class Destination(db.Model):
     __tablename__ = "Destination"
@@ -81,4 +81,56 @@ class Destination(db.Model):
     id_dest = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False, default="Farm")
     timeTravelMinutes = db.Column(db.Integer, nullable=False, default = 5)
-    image = db.Column(db.Integer, nullable=False, default = "img/destinations/idleIMG.png")
+    image = db.Column(db.String(50), nullable=False, default = "img/destinations/idleIMG.png")
+
+class UserLoco(db.Model):
+    __tablename__ = "UserLoco"
+
+    id_user_loco = db.Column(db.Integer, primary_key=True)
+    id_user = db.Column(db.Integer, ForeignKey("User.id"), nullable=False)
+    id_loco = db.Column(db.Integer, ForeignKey("Locomotive.id_loco"), nullable=False)
+    quantity = db.Column(db.Integer, default=0, nullable=False)
+
+class Wagon(db.Model):
+    __tablename__ = "Wagon"
+
+    id_wagon = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(40), nullable=False, default="Wagon")
+    model = db.Column(db.String(55), nullable=False, default="models/wagon/wagon.png")
+    profit = db.Column(db.Integer, nullable=False, default=100) #profit will be divided by 100 during total calculation
+    kind = db.Column(db.String(30), nullable=False)
+
+    __mapper_args__ = {
+        "polymorphic_on": kind,
+        "polymorphic_identity": "material"
+    }
+
+class PassengerWagon(Wagon):
+    __tablename__ = "PassengerWagon"
+
+    id_wagon = db.Column(db.Integer, ForeignKey("Wagon.id_wagon"), primary_key=True)
+    passengers = db.Column(db.Integer)
+    mail = db.Column(db.Integer)
+
+    __mapper_args__ = {
+        "polymorphic_identity": "passenger"
+    }
+
+class CargoWagon(Wagon):
+    __tablename__ = "CargoWagon"
+
+    id_wagon = db.Column(db.Integer, ForeignKey("Wagon.id_wagon"), primary_key=True)
+    id_material = db.Column(db.Integer, ForeignKey("Material.id_material"), nullable=False)
+    
+    __mapper_args__ = {
+        "polymorphic_identity": "cargo"
+    }
+
+class MaterialUser(db.Model):
+    __tablename__ = "MaterialUser"
+
+    id_material_user = db.Column(db.Integer, primary_key=True)
+    id_user = db.Column(db.Integer, ForeignKey("User.id"), nullable=False)
+    id_material = db.Column(db.Integer, ForeignKey("Material.id_material"), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False, default=0)
+

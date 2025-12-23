@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TrainStation Evolved</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/TSE.css') }}">
 </head>
-<body>
-    <h1>TrainStation Evolved</h1>
-    <div>
-        Já possui uma conta?
-        <button id="btnLogin">Entrar</button>
+<body class="index">
+    <div class="container index">
+        <h1>TrainStation Evolved</h1>
+        <div class="central_content">
+            <div class="left">
+                Já possui uma conta?<br>
+                <button id="btnLogin">Entrar</button>
+            </div>
+            <div class="right">
+                Ainda não possui uma conta?<br>
+                <button id="btnSignup">Cadastrar</button>
+            </div>
+        </div>
     </div>
-
-    <div>
-        Ainda não possui uma conta?
-        <button id="btnSignup">Cadastrar</button>
-    </div>
-    <div id="divisor">OU</div>
-    <button>Facebook</button>
-    <button>Google</button>
-
 <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 </html>
