@@ -34,7 +34,8 @@ body.index {
 .container.index{
     align-items: center;
     align-content: center;
-    background-color: rgba(94, 223, 246, 0.30);
+    background-color: #5edff64d;
+    border: 2px solid #292929;
     height: min-content;
     width: max-content;
     padding: 30px;
@@ -51,9 +52,6 @@ body.index {
 
 .social button {
     flex: 1;
-    background-color: #273a64;
-    color: #fff;
-    border: none;
     border-radius: 25px;
     padding: 10px;
     font-weight: bold;
@@ -72,16 +70,76 @@ body.index {
     display: flex;
     width: 100%;
     height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.central_content button{
+    margin-bottom: 5%;
 }
 
 .central_content > div {
-    flex: 1;                 /* 50% / 50% */
+    flex: 1;                 
     display: flex;
     flex-direction: column;
-    justify-content: center; /* centraliza vertical */
-    align-items: center;     /* centraliza horizontal */
+    justify-content: center;
+    align-items: center;    
     gap: 10px;
 }
 .container.index button{
     padding: 10px;
+    min-width: 150px;
+    border-radius: 25px;
+    background-color: rgba(47, 224, 255, 0.627);
+
+    transition: 
+        background-color 0.3s ease,
+        transform 0.2s ease;
+}
+.container.index button:hover{
+    background-color: rgba(47, 224, 255, 0.835);
+}
+
+.container.index select{
+    border: 1px solid #292929;
+    width: max-content;
+
+    border-radius: 8px;
+    background-color: rgba(47, 224, 255, 0.627);
+}
+
+.container.index input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px rgb(56, 218, 247) inset !important; /* cor de fundo */
+  -webkit-text-fill-color: #292929 !important; /* cor do texto */
+}
+
+
+.container.index input{
+    width: 100%;
+    padding: 5px;
+    background-color: rgba(28, 242, 246, 0.726);
+    border-radius: 8px;
+}
+.container.index input::placeholder{
+    color: #292929;
+}.container.index input:focus{
+    background-color: rgba(23, 216, 250, 0.871);
+}
+.container.index h1{
+    text-align: center;
+}
+.text_and_button .text {
+    min-height: 45px;
+    justify-items: center;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .container.index{
+        padding: 7px;   
+    }
+    .container.index input{
+        width: 95%;
+        padding: 3px;
+        border-radius: 8px;
+    }
 }

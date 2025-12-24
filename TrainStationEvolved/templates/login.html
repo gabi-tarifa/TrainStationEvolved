@@ -6,19 +6,24 @@
     <title>Login - TrainStation Evolved</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/TSE.css') }}">
 </head>
-<body>
-    <h1>TrainStation Evolved - Login</h1>
-    Email:
-    <input type="email" id="getEmail" placeholder="Email: "><br>
-    Senha:
-    <input type="password" id="getPass" placeholder="Senha: "><br><span id="textoerro"></span><br>
-
-    <button onclick="window.history.back()">Voltar</button>
-    <button id="btnLogin">Entrar</button>
-    <div class="divisor">OU</div>
-    <div class="social">
-        <button><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="F" />Facebook</button>
-        <button><img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" alt="G" />Google</button>
+<body class="index">
+    <div class="container index">
+        <h1>TrainStation Evolved <br> Login</h1>
+        <div class="content_central">
+            Email: <br>
+            <input type="email" id="getEmail" placeholder="Email: "><br>
+            Senha: <br>
+            <input type="password" id="getPass" placeholder="Senha: "><br><span id="textoerro"></span><br>
+        </div>
+        <div class="buttons">
+            <button onclick="window.history.back()">Voltar</button>
+            <button id="btnLogin">Entrar</button>
+        </div>
+        <div class="divisor">OU</div>
+        <div class="social">
+            <button><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="F" />Facebook</button>
+            <button><img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" alt="G" />Google</button>
+        </div>
     </div>
 <script src="{{ url_for('static', filename='js/cadastro-login.js') }}"></script>
 </body>
