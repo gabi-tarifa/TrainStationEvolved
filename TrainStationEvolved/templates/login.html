@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ptbr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - TrainStation Evolved</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/TSE.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body class="index">
     <div class="container index">
@@ -12,12 +12,12 @@
         <div class="content_central">
             Email: <br>
             <input type="email" id="getEmail" placeholder="Email: "><br>
-            Senha: <br>
+            Password: <br>
             <input type="password" id="getPass" placeholder="Senha: "><br><span id="textoerro"></span><br>
         </div>
         <div class="buttons">
-            <button onclick="window.history.back()">Voltar</button>
-            <button id="btnLogin">Entrar</button>
+            <button onclick="window.history.back()">Back</button>
+            <button id="btnLogin">Login</button>
         </div>
         <div class="divisor">OU</div>
         <div class="social">

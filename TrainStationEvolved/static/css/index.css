@@ -34,7 +34,7 @@ body.index {
 .container.index{
     align-items: center;
     align-content: center;
-    background-color: #5edff64d;
+    background-color: rgba(94, 223, 246, 0.302);
     border: 2px solid #292929;
     height: min-content;
     width: max-content;
@@ -132,7 +132,11 @@ body.index {
     justify-items: center;
     text-align: center;
 }
-
+#textoerro{
+    color: red;
+    font-size: x-small;
+    background-color: rgba(94, 223, 246, 0.533);
+}
 @media (max-width: 700px) {
     .container.index{
         padding: 7px;   

@@ -14,7 +14,11 @@ class User(db.Model, UserMixin):
     level = db.Column(db.Integer, default = 1)
     language = db.Column(db.String(4), nullable = False, default = "ptbr")
     gold = db.Column(db.Integer, nullable=False, default=0)
-
+    mail = db.Column(db.Integer, nullable=False, default=1000)
+    xp = db.Column(db.Integer, nullable=False, default=0)
+    local_slots = db.Column(db.Integer, nullable=False, default=3) #local trains collect materials and from any destination and send to your station
+    it_slots = db.Column(db.Integer, nullable=False, default=0) #IT (International Trains) are locked by default and in level 6
+    depot_slots = db.Column(db.Integer, nullable=False, default=6) #depot trains don't do a shit, aside not using warehouse space 
 
     def to_dict (self):
         return {
@@ -31,7 +35,7 @@ class Material(db.Model):
 
     id_material = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    icon = db.Column(db.String(255), nullable=False, default="icon/materialmat.png")
+    icon = db.Column(db.String(255), nullable=False, default="icon/material/mat.png")
     kind = db.Column(db.String(20), nullable=False)
     unlocking_level = db.Column(db.Integer, nullable=False)
 
@@ -74,6 +78,8 @@ class Locomotive(db.Model):
     name = db.Column(db.String(50), nullable=False)
     id_type = db.Column(db.Integer, ForeignKey("TypeLoco.id_type"), nullable=False)
     model = db.Column(db.String(255), nullable=False, default="models/loco/train.png")
+    xp_buy = db.Column(db.Integer, nullable=False, default=0)
+    xp_send = db.Column(db.Integer, nullable=False, default=0)
 
 class Destination(db.Model):
     __tablename__ = "Destination"
@@ -99,6 +105,7 @@ class Wagon(db.Model):
     model = db.Column(db.String(55), nullable=False, default="models/wagon/wagon.png")
     profit = db.Column(db.Integer, nullable=False, default=100) #profit will be divided by 100 during total calculation
     kind = db.Column(db.String(30), nullable=False)
+    xp_buy = db.Column(db.Integer, nullable=False, default=0)
 
     __mapper_args__ = {
         "polymorphic_on": kind,
@@ -134,3 +141,17 @@ class MaterialUser(db.Model):
     id_material = db.Column(db.Integer, ForeignKey("Material.id_material"), nullable=False)
     quantity = db.Column(db.Integer, nullable=False, default=0)
 
+class Train(db.Model):
+    __tablename__ = "Train"
+
+    id_train = db.Column(db.Integer, primary_key=True)
+    id_user = db.Column(db.Integer, ForeignKey("User.id"), nullable=False)
+    id_loco = db.Column(db.Integer, ForeignKey("Locomotive.id_loco"), nullable=False)
+
+class TrainWagon(db.Model):
+    __tablename__ = "TrainWagon"
+
+    id_train_wagon = db.Column(db.Integer, primary_key=True)
+    id_train = db.Column(db.Integer, ForeignKey("Train.id_train"), nullable=False)
+    id_wagon = db.Column(db.Integer, ForeignKey("Wagon.id_wagon"), nullable=False)
+    position = db.Column(db.Integer, nullable=False)

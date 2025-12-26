@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/TSE.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <title>Cadastro - TrainStation Evolved</title>
 </head>
 <body class="index">
     <div class="container index">
-        <h1>Bem-vindo!! <br> Vamos começar!</h1>
+        <h1>Welcome!! <br> Let's start!</h1>
         Nickname:
-        <input type="email" id="getNick" placeholder="Nickname: "><br>
+        <input type="email" id="getNick" placeholder="Nickname"><br>
         Email:
-        <input type="email" id="getEmail" placeholder="Email: "><br>
-        Senha:
-        <input type="password" id="getPass" placeholder="Senha: "><br>
-        Confirmar Senha:
-        <input type="password" id="getConfirmPass" placeholder="Confirme a Senha "><br>
-        Idioma:
+        <input type="email" id="getEmail" placeholder="Email"><br>
+        Password:
+        <input type="password" id="getPass" placeholder="Password"><br>
+        Corfirm Password:
+        <input type="password" id="getConfirmPass" placeholder="Confirm Password"><br>
+        Language:
         <select id="getLang">
-            <option value="ptbr">Portugues</option>
+            <option value="ptbr">Português</option>
             <option value="eng">English</option>
         </select>
         <br><span id="textoerro"></span><br>
         <div class="buttons">
-            <button onclick="window.history.back()">Voltar</button>
-            <button id="btnCadastrar">Cadastrar</button>
+            <button onclick="window.history.back()">Back</button>
+            <button id="btnCadastrar">Sign Up</button>
         </div>
     </div>
 

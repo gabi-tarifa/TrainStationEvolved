@@ -1,0 +1,147 @@
+.topleft {
+    position: fixed;
+    top: 5px;
+    left: 5px;
+
+    display: flex;
+    gap: 5px;
+}
+.topright {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+
+    display: flex;
+    gap: 5px;
+}  
+.options {
+    position: fixed;
+    bottom: 5px;
+    left: 5px;
+
+    display: flex;
+    gap: 8px;
+}
+.options button{
+    width: 70px;
+    height: 70px;
+
+    background-color: #fafafa;
+    border: 2px solid #292929;
+    
+}
+.options button:active{
+    background-color: #b7b7b7;    
+}
+#btnTrains{
+    margin-right: 10px;
+}
+#btnTime{
+    background-color: #181818;
+    color: #076c38;
+}
+#btnTime:hover{
+    background-color: #dfdfdf;
+    color: #076c38;
+}
+#btnTime:active{
+    background-color: #0084cb;
+    color: #076c38;
+}
+.elements button {
+    width: 150px;
+    padding: 5px;
+    border-radius: 999px;
+    background-color: #fafafa;
+    border: 2px solid #292929;
+    transition: 0.2s ease;
+
+}
+.elements button:hover {
+    background-color: #dfdfdf;
+}
+.elements button:active {
+    background-color: #0084cb;
+}
+
+.level {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    flex-direction: column;
+
+
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #393939cb;
+    height: 50px;
+    width: 220px;
+    border: 1px solid black;
+    color: #fafafa;
+}
+
+.level progress {
+    width: 150px;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 150px;
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #333;
+    border: 1px solid #181818;
+}
+
+.level progress::-webkit-progress-bar {
+    background-color: #333;
+}
+
+.level progress::-webkit-progress-value {
+    background-color: #4caf50;
+}
+
+.level progress::-moz-progress-bar {
+    background-color: #4caf50;
+}
+.level progress::-webkit-progress-value {
+    transition: width 0.3s ease;
+}
+@media (max-width: 1250px) {
+    .elements button {
+        width: 100px;
+        font-size: 13px;
+    }
+    .level { 
+        height: 50px;
+        width: 220px;
+    }
+}
+@media (max-width: 1000px) {
+    .elements button {
+        width: 75px;
+        font-size: 10px;
+        height: 20px;
+    }
+    .level { 
+        height: 50px;
+        width: 120px;
+    }
+}
+@media (max-width: 600px) {
+    .elements button {
+        width: 50px;
+        font-size: 8px;
+        height: 25px;
+    }
+    .level { 
+        height: 40px;
+        width: 50px;
+        font-size: 12px;
+    }
+}
