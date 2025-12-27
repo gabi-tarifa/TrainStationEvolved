@@ -12,17 +12,18 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(50), nullable = False, unique=True)
     password = db.Column(db.String(255), nullable = False)
     level = db.Column(db.Integer, default = 1)
-    language = db.Column(db.String(4), nullable = False, default = "ptbr")
+    language = db.Column(db.String(4), nullable = False, default = "eng")
     gold = db.Column(db.Integer, nullable=False, default=0)
     mail = db.Column(db.Integer, nullable=False, default=1000)
     xp = db.Column(db.Integer, nullable=False, default=0)
     local_slots = db.Column(db.Integer, nullable=False, default=3) #local trains collect materials and from any destination and send to your station
     it_slots = db.Column(db.Integer, nullable=False, default=0) #IT (International Trains) are locked by default and in level 6
     depot_slots = db.Column(db.Integer, nullable=False, default=6) #depot trains don't do a shit, aside not using warehouse space 
+    passengers = db.Column(db.Integer, nullable=False, default=0)
 
     def to_dict (self):
         return {
-            "id": self.id_usuario,
+            "id": self.id,
             "nickname": self.nickname,
             "email": self.email,
             "password": self.password,

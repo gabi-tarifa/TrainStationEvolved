@@ -1,0 +1,77 @@
+.darkBG {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(0, 0, 0, 0.493);
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: rgb(209, 209, 209);
+    font-size: large;
+}
+#typeSlots{
+    color: aqua;
+}
+.divTrains {
+    background-color: #cfcfcf;
+    border: 2px solid #292929;
+    width: 600px;
+    height: 500px;
+    border-radius: 15px;
+    padding: 0;
+    overflow: hidden;
+}
+.optionSlots {
+    background-color: aqua;
+    color: #292929;
+    border: 1px solid #292929;
+    border-radius: 8px;
+    padding: 6px 10px;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+}
+.optionSlots.active{
+    background-color: rgb(0, 193, 193)
+}
+.btnClose {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+
+    cursor: pointer;
+    font-size: larger;
+    color: white;
+}
+.btnClose:hover {
+    color: red;
+}
+.header_train_slots {
+    position: relative;
+
+    background-color: rgb(67, 67, 67);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.buttonOptions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.headerTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

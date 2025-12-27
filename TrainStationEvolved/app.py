@@ -100,6 +100,12 @@ def login():
         return jsonify({"message":"Login efetuado com sucesso!"}), 200
     else:
         return jsonify({"message":"Não foi possível encontrar o usuário"}), 401
+    
+@app.route("/page/trains")
+def garage():
+    user_data = User.query.filter_by(id=current_user.id).first()
+
+    return render_template("trains.html", user=user_data)
 
 if __name__ == "__main__":
     app.run(debug=True)

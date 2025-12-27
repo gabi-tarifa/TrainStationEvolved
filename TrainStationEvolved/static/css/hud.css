@@ -87,7 +87,6 @@
 }
 
 .level progress {
-    width: 150px;
     appearance: none;
     -webkit-appearance: none;
     width: 150px;
@@ -121,6 +120,10 @@
         height: 50px;
         width: 220px;
     }
+    .level progress {
+        width: 150px;
+        height: 12px;
+    }
 }
 @media (max-width: 1000px) {
     .elements button {
@@ -131,6 +134,10 @@
     .level { 
         height: 50px;
         width: 120px;
+    }
+    .level progress {
+        width: 100px;
+        height: 12px;
     }
 }
 @media (max-width: 600px) {
@@ -143,5 +150,9 @@
         height: 40px;
         width: 50px;
         font-size: 12px;
+    }
+    .level progress {
+        width: 40px;
+        height: 12px;
     }
 }
