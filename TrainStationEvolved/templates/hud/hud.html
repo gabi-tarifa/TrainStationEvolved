@@ -1,16 +1,43 @@
 <div class="topleft elements">
     <button id="btnTime">00:00:00</button>
-    <button id="btnPassengers">797</button>
-    <button id="btnHoverMail">1000</button>
+    <button id="btnPassengers" class="tooltip-container">{{ passengers }}
+        <div class="tooltip">
+            Passengers are used to collect gold from local trains and send to contractors. You can't send a passenger train if 
+            either you are low on passengers or you don't have any.
+        </div>
+    </button>
+    <button id="btnHoverMail" class="tooltip-container">{{ mail }}
+        <div class="tooltip">
+            Mail is used to collect gold from local trains and send to contractors. You can't send a mail-loaded train if 
+            either you are low on mail or you don't have any.
+        </div>
+    </button>
 </div>
 <div class="topright elements">
-    <button id="btnGold">1000</button>
-    <button id="btnDiamonds">50</button>
-    <button id="btnMats">Materials</button>
+    <button id="btnGold" class="tooltip-container">{{ gold }}
+        <div class="tooltip">
+            Main currency used to buy resources to improve your station/fleet.
+        </div>
+    </button>
+    <button id="btnDiamonds" class="tooltip-container">{{ diamonds }}
+        <div class="tooltip">
+            A rare currency. You can use it to speed up trains, buy rare items or special resources.
+        </div>
+    </button>
+    <button id="btnMats" class="tooltip-container">Materials
+        <div class="tooltip">
+            Materials are essential to upgrade and improve your station. You can collect them on local trains ou produce them on a factory
+        </div>
+    </button>
 </div>
-<div class="level">
-    1
-    <progress max="100" value="35" id="progressLevel"></progress>
+<div class="level tooltip-container">
+    {{ level }}
+    <progress max="{{ xp_needed }}" value="{{ xp }}" id="progressLevel"></progress>
+    <div class="tooltip">
+        XP required: {{ xp_needed }} <br>
+        Amount you have: {{ xp }} <br>
+        XP remaining: {{ xp_remaining }}
+    </div>
 </div>
 
 <div class="options">

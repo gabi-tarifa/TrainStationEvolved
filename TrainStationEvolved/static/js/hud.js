@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     btnAchievements = document.getElementById("btnAchievements");
     btnContracts = document.getElementById("btnContracts");
 
+    modal_root = document.getElementById("modal-root")
+
     btnTrains.addEventListener(async () => {
         
     })

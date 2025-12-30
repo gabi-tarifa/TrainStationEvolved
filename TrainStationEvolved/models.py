@@ -20,6 +20,7 @@ class User(db.Model, UserMixin):
     it_slots = db.Column(db.Integer, nullable=False, default=0) #IT (International Trains) are locked by default and in level 6
     depot_slots = db.Column(db.Integer, nullable=False, default=6) #depot trains don't do a shit, aside not using warehouse space 
     passengers = db.Column(db.Integer, nullable=False, default=0)
+    diamonds = db.Column(db.Integer, nullable=False, default=50) #diamonds will be the main monetization source of this game
 
     def to_dict (self):
         return {
@@ -156,3 +157,11 @@ class TrainWagon(db.Model):
     id_train = db.Column(db.Integer, ForeignKey("Train.id_train"), nullable=False)
     id_wagon = db.Column(db.Integer, ForeignKey("Wagon.id_wagon"), nullable=False)
     position = db.Column(db.Integer, nullable=False)
+"""
+class Contractor(db.Model):
+    id_contractor = db.Column(db.Integer, primary_key=True)
+
+class Station(db.Model):
+    __tablename__ = "Station"
+
+    id_station = db.Column(db.Integer, primary_key=True)"""

@@ -9,6 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from setup.setup_destinations import create_destinations
 from setup.setup_typeloco import create_typeloco
 from setup.setup_materials import create_materials
+from xp_visualiser import xp_to_next_level
 
 
 app = Flask(__name__)
@@ -49,8 +50,21 @@ def logout():
 
 @app.route("/")
 @login_required
-def mapa():
-    return render_template("game.html")
+def game():
+    user_data = User.query.filter_by(id=current_user.id).first()
+
+    xp_needed = xp_to_next_level(current_user.level)
+
+    return render_template("game.html",
+                            gold=user_data.gold,
+                            diamonds=user_data.diamonds,
+                            passengers=user_data.passengers,
+                            mail=user_data.mail,
+                            level=user_data.level,
+                            xp=user_data.xp,
+                            xp_needed=xp_needed,
+                            xp_remaining=xp_needed-user_data.xp,
+                            )
 
 @app.route("/login")
 def login_page():

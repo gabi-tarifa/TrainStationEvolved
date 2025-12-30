@@ -9,11 +9,10 @@
     {% include 'hud/hud.html' %}
 
     <div id="map-root">
-      {% include 'pasta_mapas/mapa.html' %}
+      {% include 'world/map.html' %}
     </div>
 
-    <!-- MODAIS / PAINÉIS -->
-    <div id="modal-root"></div>
+    <div id="modal-root"></div><!--This div is responsable for showing the screens upon some action, like clicking the train or any bottom button-->
     
 <script src="{{ url_for('static', filename='js/hud.js') }}"></script>
 </body>
