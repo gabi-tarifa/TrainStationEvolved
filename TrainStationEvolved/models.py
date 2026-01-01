@@ -80,8 +80,11 @@ class Locomotive(db.Model):
     name = db.Column(db.String(50), nullable=False)
     id_type = db.Column(db.Integer, ForeignKey("TypeLoco.id_type"), nullable=False)
     model = db.Column(db.String(255), nullable=False, default="models/loco/train.png")
+    power = db.Column(db.Integer, nullable=False, default=3)
     xp_buy = db.Column(db.Integer, nullable=False, default=0)
     xp_send = db.Column(db.Integer, nullable=False, default=0)
+    limit = db.Column(db.Integer)
+    level_unlocking = db.Column(db.Integer, nullable=False, default=1)
 
 class Destination(db.Model):
     __tablename__ = "Destination"
@@ -108,6 +111,8 @@ class Wagon(db.Model):
     profit = db.Column(db.Integer, nullable=False, default=100) #profit will be divided by 100 during total calculation
     kind = db.Column(db.String(30), nullable=False)
     xp_buy = db.Column(db.Integer, nullable=False, default=0)
+    limit = db.Column(db.Integer)
+    level_unlocking = db.Column(db.Integer, nullable=False, default=1)
 
     __mapper_args__ = {
         "polymorphic_on": kind,
@@ -149,6 +154,8 @@ class Train(db.Model):
     id_train = db.Column(db.Integer, primary_key=True)
     id_user = db.Column(db.Integer, ForeignKey("User.id"), nullable=False)
     id_loco = db.Column(db.Integer, ForeignKey("Locomotive.id_loco"), nullable=False)
+    location = db.Column(db.CHAR(1), nullable=False, default="D") # L(ocal) | I(nternacional) | D(epot)
+    status = db.Column(db.CHAR(1), nullable=False, default="I") # I(dle) | T(ravelling)
 
 class TrainWagon(db.Model):
     __tablename__ = "TrainWagon"
@@ -157,6 +164,25 @@ class TrainWagon(db.Model):
     id_train = db.Column(db.Integer, ForeignKey("Train.id_train"), nullable=False)
     id_wagon = db.Column(db.Integer, ForeignKey("Wagon.id_wagon"), nullable=False)
     position = db.Column(db.Integer, nullable=False)
+
+class LocoUser(db.Model):
+    __tablename__ = "LocoUser"
+
+    id_loco_user = db.Column(db.Integer, primary_key=True)
+    id_loco = db.Column(db.Integer, ForeignKey("Locomotive.id_loco"), nullable=False)
+    id_user = db.Column(db.Integer, ForeignKey("User.id"), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False, default=1)
+
+class WagonUser(db.Model):
+    __tablename__ = "WagonUser"
+
+    id_wagon_user = db.Column(db.Integer, primary_key=True)
+    id_wagon = db.Column(db.Integer, ForeignKey("Wagon.id_wagon"), nullable=False)
+    id_user = db.Column(db.Integer, ForeignKey("User.id"), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False, default=1)
+
+
+
 """
 class Contractor(db.Model):
     id_contractor = db.Column(db.Integer, primary_key=True)

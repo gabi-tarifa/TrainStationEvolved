@@ -3,7 +3,8 @@ from flask import Flask
 from flask import app, render_template, redirect, url_for, flash, jsonify, request
 from flask_login import current_user, login_required, LoginManager, login_user, logout_user
 from flask_cors import CORS
-from models import db, User
+from models import db, User, Locomotive, TypeLoco, TrainWagon, Train, Wagon, Material, RawMaterial, FactoryMaterial
+from models import Destination
 import pymysql
 from werkzeug.security import generate_password_hash, check_password_hash
 from setup.setup_destinations import create_destinations
@@ -116,10 +117,20 @@ def login():
         return jsonify({"message":"Não foi possível encontrar o usuário"}), 401
     
 @app.route("/page/trains")
-def garage():
+def trainSpace():
     user_data = User.query.filter_by(id=current_user.id).first()
 
-    return render_template("trains.html", user=user_data)
+    local_trains = Train.query.filter_by(id_user=current_user.id, location="L").all()
+    it_trains = Train.query.filter_by(id_user=current_user.id, location="I").all()
+    depot_trains = Train.query.filter_by(id_user=current_user.id, location="D").all()
+
+
+    return render_template("page/trains.html",
+                            user=user_data,
+                            local_slots=user_data.local_slots,
+                            it_slots=user_data.it_slots,
+                            depot_slots=user_data.depot_slots,
+                            )
 
 if __name__ == "__main__":
     app.run(debug=True)
