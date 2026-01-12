@@ -123,8 +123,8 @@ class PassengerWagon(Wagon):
     __tablename__ = "PassengerWagon"
 
     id_wagon = db.Column(db.Integer, ForeignKey("Wagon.id_wagon"), primary_key=True)
-    passengers = db.Column(db.Integer)
-    mail = db.Column(db.Integer)
+    passengers = db.Column(db.Integer, default=0)
+    mail = db.Column(db.Integer, default=0)
 
     __mapper_args__ = {
         "polymorphic_identity": "passenger"

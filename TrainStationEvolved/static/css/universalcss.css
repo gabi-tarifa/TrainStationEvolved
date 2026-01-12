@@ -1,0 +1,40 @@
+.darkBG {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(0, 0, 0, 0.493);
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: rgb(209, 209, 209);
+    font-size: large;
+}
+.divTrains {
+    width: 500px;
+    height: 400px;
+
+    background-color: #cfcfcf;
+    border: 2px solid #292929;
+    border-radius: 14px;
+
+    overflow: hidden;
+}
+.btnClose {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+
+    cursor: pointer;
+    font-size: larger;
+    color: white;
+}
+.btnClose:hover {
+    color: red;
+}

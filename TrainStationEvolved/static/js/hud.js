@@ -20,3 +20,6 @@ btnContracts = document.getElementById("btnContracts");
 btnTrains.addEventListener("click", () => {
     loadScreen("/page/trains");
 })
+btnShop.addEventListener("click", () => {
+    loadScreen("/page/shop");
+})

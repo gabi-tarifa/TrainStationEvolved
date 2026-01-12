@@ -1,0 +1,139 @@
+.buildingOptions {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    background-color: #2a2a2a;
+    border-bottom: 2px solid #3a3a3a;
+
+    height: 48px;
+}
+.optionBuild {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+
+    font-size: 14px;
+    color: #cfcfcf;
+    cursor: pointer;
+
+    border-right: 1px solid #3a3a3a;
+}
+.btnClose {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+
+    cursor: pointer;
+    font-size: larger;
+    color: white;
+}
+.btnClose:hover {
+    color: red;
+}
+.divTrains {
+
+    background-color: #1e1e1e;
+    border-radius: 14px;
+
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: 1fr;
+
+    overflow: hidden;
+}
+.displayTrain {
+    grid-row: 2;
+
+    background-color: #181818;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+    padding: 20px;
+
+    overflow: auto;
+    min-height: 0;
+}
+.showProfit {
+    grid-row: 4;
+    grid-column: 1;
+
+    width: 100%;
+    max-width: 100%;
+
+    height: 70px;
+
+    background-color: #191919;
+    border-top: 1px solid #333;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    float: none !important;
+    position: static !important;
+}
+.showItems {
+    grid-row: 2;
+    grid-column: 1;
+
+    width: 100%;
+    max-width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: 10px;
+    padding: 10px;
+
+    background-color: #222;
+    border-bottom: 1px solid #333;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+.showItems,
+.showItems * {
+    float: none !important;
+    position: static;
+}
+.showItems .itemCard {
+    flex: 0 0 auto;   /* 🔥 ESSENCIAL */
+    width: 120px;
+    height: 70px;
+
+    background-color: #2f2f2f;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+.displayTrain {
+    grid-row: 3;
+    grid-column: 1;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: auto;
+}

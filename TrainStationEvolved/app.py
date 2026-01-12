@@ -4,12 +4,14 @@ from flask import app, render_template, redirect, url_for, flash, jsonify, reque
 from flask_login import current_user, login_required, LoginManager, login_user, logout_user
 from flask_cors import CORS
 from models import db, User, Locomotive, TypeLoco, TrainWagon, Train, Wagon, Material, RawMaterial, FactoryMaterial
-from models import Destination
+from models import Destination, UserLoco, WagonUser, CargoWagon, PassengerWagon
 import pymysql
 from werkzeug.security import generate_password_hash, check_password_hash
 from setup.setup_destinations import create_destinations
 from setup.setup_typeloco import create_typeloco
 from setup.setup_materials import create_materials
+from setup.setup_locos import create_locos
+from setup.setup_wagons import create_wagons
 from xp_visualiser import xp_to_next_level
 
 
@@ -27,6 +29,8 @@ with app.app_context():
     create_destinations()
     create_typeloco()
     create_materials()
+    create_locos()
+    create_wagons()
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -117,6 +121,7 @@ def login():
         return jsonify({"message":"Não foi possível encontrar o usuário"}), 401
     
 @app.route("/page/trains")
+@login_required
 def trainSpace():
     user_data = User.query.filter_by(id=current_user.id).first()
 
@@ -131,6 +136,30 @@ def trainSpace():
                             it_slots=user_data.it_slots,
                             depot_slots=user_data.depot_slots,
                             )
+
+@app.route("/page/trains/buildTrain")
+@login_required
+def buildTrain():
+    user_data = User.query.filter_by(id=current_user.id).first()
+
+    locos = UserLoco.query.filter_by(id_user=current_user.id).all()
+    
+    wagons = WagonUser.query.filter_by(id_user=current_user.id).all()
+
+    return render_template("page/createTrain.html",
+                            user=user_data,
+                            locos=locos,
+                            wagons=wagons,
+                            )
+
+@app.route("/page/shop")
+@login_required
+def shop():
+    locos = Locomotive.query.all()
+    cargowagons = CargoWagon.query.all()
+    passwagons = PassengerWagon.query.all()
+
+    return render_template("page/shop.html", locos=locos, cargowagons=cargowagons, passwagons=passwagons)
 
 if __name__ == "__main__":
     app.run(debug=True)

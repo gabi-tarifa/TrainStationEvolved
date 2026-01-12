@@ -10,9 +10,11 @@
                 <div class="optionSlots active" id="btn_local_slots">Local Trains</div>
                 <div class="optionSlots" id="btn_it_slots">IT Trains</div>
                 <div class="optionSlots" id="btn_depot_slots">Depot Trains</div>
+                <div class="optionSlots" onclick="loadScreen('/page/trains/buildTrain')">+ New Train</div>
             </div>
             <span class="btnClose" id="btnClose" onclick="closeTab()">x</span>
         </header>
     </div>
 </div>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/trains.css') }}">
+<script src="{{ url_for('static', filename='js/trains.js') }}"></script>

@@ -1,4 +1,4 @@
-def create_materials():
+def create_wagons():
     from app import app, db
     from models import Wagon, CargoWagon, PassengerWagon
 
@@ -6,11 +6,11 @@ def create_materials():
         existing_wagons = {w.name for w in Wagon.query.all()}
 
         new_cargo_wagons = [
-            {"name":"Wood Cart", "model":"/models/wagon/wood0woodcart.png", "unlocking_level": 3, "profit":0},
+            {"name":"Wood Cart", "id_material": 1, "model":"/models/wagon/wood0woodcart.png", "level_unlocking": 1, "profit":0, "xp_buy":5},
         ]
 
         new_pass_wagons = [
-            {"name":"Timber", "model":"/model/material/timber.png", "unlocking_level": 4},
+            {"name":"Mail Car", "model":"/models/wagon/mail0mailcar.png", "level_unlocking": 1, "xp_buy":3, "mail": 200, "profit":0},
         ]
 
         for cargo_wagons in new_cargo_wagons:

@@ -1,0 +1,13 @@
+<div class="darkBG">
+    <div class="divTrains">
+        <header class="optionShop">
+            <button id="btnLoco">Locomotives</button>
+            <button id="btnCargoWagon">Cargo Wagons</button>
+            <button id="btnPassWagon">Passenger and Mail Wagons</button>
+            <span class="btnClose" id="btnClose" onclick="closeTab()">x</span>
+        </header>
+        <div class="displayShopItems"></div>
+    </div>
+</div>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/universalcss.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/shop.css') }}">

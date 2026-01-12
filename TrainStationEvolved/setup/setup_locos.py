@@ -1,4 +1,4 @@
-def create_destinations():
+def create_locos():
     from app import app, db
     from models import Locomotive
 
