@@ -1,4 +1,10 @@
 def xp_to_next_level(level: int) -> int:
+    """    
+    :param level: Enter an int value for current player level
+    :type level: int
+    :return: Return an int value for the necessary total xp to level up the entering level
+    :rtype: int
+    """
     if level <= 5:
         return [20, 80, 231, 556, 1035][level - 1]
     
@@ -16,10 +22,6 @@ def xp_to_next_level(level: int) -> int:
 
     xp = A + (B * level) + (C * (level ** 2))
     return int(xp)
-
-# =========================
-# VISUALIZAÇÃO NÍVEL A NÍVEL
-# =========================
 
 def visualize_levels(max_level):
     total_xp = 0
@@ -40,10 +42,3 @@ def visualize_levels(max_level):
         )
 
     print("-" * 50)
-
-
-# =========================
-# EXECUÇÃO
-# =========================
-
-#visualize_levels(1000)

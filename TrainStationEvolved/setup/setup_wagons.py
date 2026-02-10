@@ -6,11 +6,11 @@ def create_wagons():
         existing_wagons = {w.name for w in Wagon.query.all()}
 
         new_cargo_wagons = [
-            {"name":"Wood Cart", "id_material": 1, "model":"/models/wagon/wood0woodcart.png", "level_unlocking": 1, "profit":0, "xp_buy":5},
+            {"name":"Wood Cart", "id_material": 1, "model":"/models/wagon/wood0woodcart.png", "level_unlocking": 1, "profit":0, "xp_buy":5, "price":250},
         ]
 
         new_pass_wagons = [
-            {"name":"Mail Car", "model":"/models/wagon/mail0mailcar.png", "level_unlocking": 1, "xp_buy":3, "mail": 200, "profit":0},
+            {"name":"Mail Car", "model":"/models/wagon/mail0mailcar.png", "level_unlocking": 1, "xp_buy":3, "mail": 200, "profit":0, "price":200},
         ]
 
         for cargo_wagons in new_cargo_wagons:

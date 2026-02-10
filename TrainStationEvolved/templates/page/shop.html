@@ -1,12 +1,152 @@
 <div class="darkBG">
     <div class="divTrains">
         <header class="optionShop">
-            <button id="btnLoco">Locomotives</button>
-            <button id="btnCargoWagon">Cargo Wagons</button>
-            <button id="btnPassWagon">Passenger and Mail Wagons</button>
+            <button id="btnLoco" onclick="toggleScreen('train')">Locomotives</button>
+            <button id="btnCargoWagon" onclick="toggleScreen('cargo')">Cargo Wagons</button>
+            <button id="btnPassWagon" onclick="toggleScreen('pass')">Gold Wagons</button>
             <span class="btnClose" id="btnClose" onclick="closeTab()">x</span>
         </header>
-        <div class="displayShopItems"></div>
+        <div class="displayShopItems" id="trains">
+            {% for loco in loco %}
+            <div class="shopItem
+                {% if loco.locked %} locked {% elif not loco.affordable %} noMoney {% endif %}">
+
+                <img src="{{ url_for('static', filename=loco.image) }}">
+
+                <strong>{{ loco.name }}</strong>
+
+                <div class="owned">
+                Owned: {{ loco.owned }}
+                </div>
+                
+                <div class="xp_buy">
+                XP per purchase: {{ loco.xp_buy }}
+                </div>
+
+                <div class="stats">
+                    ⚡ {{ loco.power }}
+                </div>
+
+                <div class="profit">
+                    Profit: +{{ loco.profit }}%
+                </div>
+
+                {% if loco.locked %}
+                    <div class="lockInfo">
+                        {% if loco.lock_reason == "level" %}
+                            Unlocks at level {{ loco.level_unlocking }}
+                        {% elif loco.lock_reason == "diesel" %}
+                            Diesel expansion required
+                        {% elif loco.lock_reason == "electric" %}
+                            Electric expansion required
+                        {% elif loco.lock_reason == "maglev" %}
+                            Maglev expansion required
+                        {% elif loco.lock_reason == "hyperloop" %}
+                            Hyperloop expansion required
+                        {% endif %}
+                    </div>
+
+                {% elif not loco.affordable %}
+                    <button disabled>💰 {{ loco.price }}</button>
+
+                {% else %}
+                    <button data-price="{{ loco.price }}" id="btnBuy" class="btnBuy" onclick="buyItem('loco', {{ loco.id }})">💰 {{ loco.price }} </button>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="displayShopItems hidden" id="cargowagons">
+            {% for cargowagon in cargowagon %}
+            <div class="shopItem
+                {% if cargowagon.locked %} locked {% elif not cargowagon.affordable %} noMoney {% endif %}">
+
+                <img src="{{ url_for('static', filename=cargowagon.image) }}">
+
+                <strong>{{ cargowagon.name }}</strong>
+
+                <div class="owned">
+                Material: {{ cargowagon.material }}
+                </div>
+
+                <div class="owned">
+                Owned: {{ cargowagon.owned }}
+                </div>
+                
+                <div class="xp_buy">
+                XP per purchase: {{ cargowagon.xp_buy }}
+                </div>
+
+                <div class="profit">
+                    Profit: +{{ cargowagon.profit }}%
+                </div>
+
+                <div class="profit">
+                    Profit: +{{ cargowagon.profit }}%
+                </div>
+
+                {% if cargowagon.locked %}
+                    <div class="lockInfo">
+                        {% if cargowagon.lock_reason == "level" %}
+                            Unlocks at level {{ cargowagon.level_unlocking }}
+                        {% endif %}
+                    </div>
+
+                {% elif not cargowagon.affordable %}
+                    <button disabled>💰 {{ cargowagon.price }}</button>
+
+                {% else %}
+                    <button data-price="{{ cargowagon.price }}" id="btnBuy" class="btnBuy" onclick="buyItem('cargo', {{ cargowagon.id }})">💰 {{ cargowagon.price }} </button>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="displayShopItems hidden" id="passwagons">
+            {% for passwagon in passwagon %}
+            <div class="shopItem
+                {% if passwagon.locked %} locked {% elif not passwagon.affordable %} noMoney {% endif %}">
+
+                <img src="{{ url_for('static', filename=passwagon.image) }}">
+
+                <strong>{{ passwagon.name }}</strong>
+                
+                <div class="passengers">
+                    Passengers: {{ passwagon.passengers }}
+                </div>
+
+                <div class="mail">
+                    Mail: {{ passwagon.mail }}
+                </div>
+
+                <div class="owned">
+                Owned: {{ passwagon.owned }}
+                </div>
+                
+                <div class="xp_buy">
+                XP per purchase: {{ passwagon.xp_buy }}
+                </div>
+
+                <div class="profit">
+                    Profit: +{{ passwagon.profit }}%
+                </div>
+
+                {% if passwagon.locked %}
+                    <div class="lockInfo">
+                        {% if passwagon.lock_reason == "level" %}
+                            Unlocks at level {{ passwagon.level_unlocking }}
+                        {% endif %}
+                    </div>
+
+                {% elif not passwagon.affordable %}
+                    <button disabled>💰 {{ passwagon.price }}</button>
+
+                {% else %}
+                    <button data-price="{{ passwagon.price }}" id="btnBuy" class="btnBuy" onclick="buyItem('passenger', {{ passwagon.id }})">💰 {{ passwagon.price }} </button>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/universalcss.css') }}">

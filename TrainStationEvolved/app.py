@@ -159,7 +159,192 @@ def shop():
     cargowagons = CargoWagon.query.all()
     passwagons = PassengerWagon.query.all()
 
-    return render_template("page/shop.html", locos=locos, cargowagons=cargowagons, passwagons=passwagons)
+
+    locos_data = []
+
+    for loco in locos:
+        locked = False
+        lock_reason = None
+        ownedloco = UserLoco.query.filter_by(
+            id_user=current_user.id,
+            id_loco=loco.id_loco
+        ).first()
+
+        if current_user.level < loco.level_unlocking:
+            locked = True
+            lock_reason = "level"
+        elif loco.id_type == 2 and not current_user.diesel_enabled:
+            locked = True
+            lock_reason = "diesel"
+        elif loco.id_type == 3 and not current_user.electric_enabled:
+            locked = True
+            lock_reason = "electric"
+        elif loco.id_type == 4 and not current_user.maglev_enabled:
+            locked = True
+            lock_reason = "maglev"
+        elif loco.id_type == 5 and not current_user.hyperloop_enabled:
+            locked = True
+            lock_reason = "hyperloop"
+
+        affordable = current_user.gold >= loco.price
+
+        type_data = TypeLoco.query.filter_by(id_type=loco.id_type).first()
+
+        locos_data.append({
+            "id": loco.id_loco,
+            "name": loco.name,
+            "power": loco.power,
+            "profit": type_data.profit,
+            "price": loco.price,
+            "image": loco.model,
+            "type": type_data.name,
+            "tax_send": loco.tax_send,
+            "limit": loco.limit,
+            "owned": ownedloco.quantity if ownedloco else 0,
+            "xp_buy": loco.xp_buy,
+            "level_unlocking": loco.level_unlocking,
+
+            "locked": locked,
+            "lock_reason": lock_reason,
+            "affordable": affordable
+        })
+
+    passwagons_data = []
+
+    for passwagon in passwagons:
+        locked = False
+        lock_reason = None
+        ownedpasswagon = WagonUser.query.filter_by(
+            id_user=current_user.id,
+            id_wagon=passwagon.id_wagon
+        ).first()
+
+        if current_user.level < passwagon.level_unlocking:
+            locked = True
+            lock_reason = "level"
+
+        affordable = current_user.gold >= passwagon.price
+
+        passwagons_data.append({
+            "id": passwagon.id_wagon,
+            "name": passwagon.name,
+            "profit": passwagon.profit,
+            "price": passwagon.price,
+            "image": passwagon.model,
+            "passengers": passwagon.passengers,
+            "mail": passwagon.mail,
+            "xp_buy": passwagon.xp_buy,
+            "owned": ownedpasswagon.quantity if ownedpasswagon else 0,
+
+
+            "locked": locked,
+            "lock_reason": lock_reason,
+            "affordable": affordable
+        })
+
+    cargowagons_data = []
+
+    for cargowagon in cargowagons:
+        material=Material.query.filter_by(id_material=cargowagon.id_material).first()
+
+        locked = False
+        lock_reason = None
+        ownedcargowagon = WagonUser.query.filter_by(
+            id_user=current_user.id,
+            id_wagon=cargowagon.id_wagon
+        ).first()
+
+        if current_user.level < cargowagon.level_unlocking:
+            locked = True
+            lock_reason = "level"
+
+        affordable = current_user.gold >= cargowagon.price
+
+        cargowagons_data.append({
+            "id": cargowagon.id_wagon,
+            "name": cargowagon.name,
+            "profit": cargowagon.profit,
+            "price": cargowagon.price,
+            "image": cargowagon.model,
+            "xp_buy": cargowagon.xp_buy,
+            "material": material.name,
+            "owned": ownedcargowagon.quantity if ownedcargowagon else 0,
+
+            "locked": locked,
+            "lock_reason": lock_reason,
+            "affordable": affordable
+        })
+
+    return render_template("page/shop.html", loco=locos_data, cargowagon=cargowagons_data, passwagon=passwagons_data)
+
+@app.route("/api/shop/buy", methods=["POST"])
+@login_required
+def buy_item():
+    data = request.get_json()
+
+    item_type = data.get("type")
+    item_id = data.get("id")
+
+    user = User.query.get(current_user.id)
+
+    if item_type == "loco":
+        item = Locomotive.query.get(item_id)
+    elif item_type == "cargo":
+        item = CargoWagon.query.get(item_id)
+    elif item_type == "passenger":
+        item = PassengerWagon.query.get(item_id)
+    else:
+        return jsonify(success=False, error="invalid_type"), 400
+
+    price = item.price
+    
+    if user.gold < price:
+        return jsonify(success=False, error="not_enough_gold"), 403
+    
+    user.gold -= price
+
+    if item_type == "loco":
+        ul = UserLoco.query.filter_by(id_user=user.id, id_loco=item.id_loco).first()
+        if ul:
+            ul.quantity += 1
+        else:
+            db.session.add(UserLoco(id_user=user.id, id_loco=item.id_loco, quantity=1))
+
+    else:
+        wu = WagonUser.query.filter_by(id_user=user.id, id_wagon=item.id_wagon).first()
+        if wu:
+            wu.quantity += 1
+        else:
+            db.session.add(WagonUser(id_user=user.id, id_wagon=item.id_wagon, quantity=1))
+
+    xp_data = apply_xp(user, item.xp_buy)
+
+    db.session.commit()
+
+    return jsonify(success=True, new_gold=user.gold, price=price, xp_update=item.xp_buy, **xp_data)
+
+def apply_xp(user, gained_xp):
+    with app.app_context():
+        leveled_up = False
+        levels_gained = 0
+
+        user.xp += gained_xp
+
+        while user.xp >= xp_to_next_level(user.level):
+            user.xp -= xp_to_next_level(user.level)
+            user.level += 1
+            leveled_up = True
+            levels_gained += 1
+
+        xp_needed = xp_to_next_level(user.level)
+
+    return {
+        "level": user.level,
+        "xp": user.xp,
+        "xp_needed": xp_needed,
+        "leveled_up": leveled_up,
+        "levels_gained": levels_gained
+    }
 
 if __name__ == "__main__":
     app.run(debug=True)

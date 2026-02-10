@@ -13,7 +13,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(255), nullable = False)
     level = db.Column(db.Integer, default = 1)
     language = db.Column(db.String(4), nullable = False, default = "eng")
-    gold = db.Column(db.Integer, nullable=False, default=0)
+    gold = db.Column(db.Integer, nullable=False, default=0) #main currency of this game
     mail = db.Column(db.Integer, nullable=False, default=1000)
     xp = db.Column(db.Integer, nullable=False, default=0)
     local_slots = db.Column(db.Integer, nullable=False, default=3) #local trains collect materials and from any destination and send to your station
@@ -21,6 +21,11 @@ class User(db.Model, UserMixin):
     depot_slots = db.Column(db.Integer, nullable=False, default=6) #depot trains don't do a shit, aside not using warehouse space 
     passengers = db.Column(db.Integer, nullable=False, default=0)
     diamonds = db.Column(db.Integer, nullable=False, default=50) #diamonds will be the main monetization source of this game
+    diesel_enabled = db.Column(db.Boolean, default=False)
+    electric_enabled = db.Column(db.Boolean, default=False)
+    maglev_enabled = db.Column(db.Boolean, default=False)
+    hyperloop_enabled = db.Column(db.Boolean, default=False) # those *_enabled are permanent expansions which allows the player to use the respective loco type
+
 
     def to_dict (self):
         return {
@@ -85,6 +90,8 @@ class Locomotive(db.Model):
     xp_send = db.Column(db.Integer, nullable=False, default=0)
     limit = db.Column(db.Integer)
     level_unlocking = db.Column(db.Integer, nullable=False, default=1)
+    tax_send = db.Column(db.Integer, nullable=False, default=0)
+    price = db.Column(db.Integer, nullable=False, default=0)
 
 class Destination(db.Model):
     __tablename__ = "Destination"
@@ -113,6 +120,7 @@ class Wagon(db.Model):
     xp_buy = db.Column(db.Integer, nullable=False, default=0)
     limit = db.Column(db.Integer)
     level_unlocking = db.Column(db.Integer, nullable=False, default=1)
+    price = db.Column(db.Integer, nullable=False, default=0)
 
     __mapper_args__ = {
         "polymorphic_on": kind,
@@ -165,14 +173,6 @@ class TrainWagon(db.Model):
     id_wagon = db.Column(db.Integer, ForeignKey("Wagon.id_wagon"), nullable=False)
     position = db.Column(db.Integer, nullable=False)
 
-class LocoUser(db.Model):
-    __tablename__ = "LocoUser"
-
-    id_loco_user = db.Column(db.Integer, primary_key=True)
-    id_loco = db.Column(db.Integer, ForeignKey("Locomotive.id_loco"), nullable=False)
-    id_user = db.Column(db.Integer, ForeignKey("User.id"), nullable=False)
-    quantity = db.Column(db.Integer, nullable=False, default=1)
-
 class WagonUser(db.Model):
     __tablename__ = "WagonUser"
 
@@ -181,7 +181,23 @@ class WagonUser(db.Model):
     id_user = db.Column(db.Integer, ForeignKey("User.id"), nullable=False)
     quantity = db.Column(db.Integer, nullable=False, default=1)
 
+class TrainTravel(db.Model):
+    __tablename__ = "TrainTravel"
 
+    id_train_travel = db.Column(db.Integer, primary_key=True)
+
+    id_train = db.Column(
+        db.Integer,
+        db.ForeignKey("Train.id_train"),
+        nullable=False
+    )
+
+    travel_type = db.Column(db.CHAR(1)) # (L)ocal | (I)nternational
+
+    time_start = db.Column(db.DateTime)
+    time_end = db.Column(db.DateTime)
+
+    status = db.Column(db.CHAR(1)) #(A)ctive | (F)inished
 
 """
 class Contractor(db.Model):

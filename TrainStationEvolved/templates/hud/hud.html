@@ -30,8 +30,8 @@
         </div>
     </button>
 </div>
-<div class="level tooltip-container">
-    {{ level }}
+<div id="level" class="level tooltip-container">
+    <span id="levelnumber">{{ level }}</span>
     <progress max="{{ xp_needed }}" value="{{ xp }}" id="progressLevel"></progress>
     <div class="tooltip">
         XP required: {{ xp_needed }} <br>
@@ -49,3 +49,4 @@
     <!--<button id="btnGifts">Gifts</button>-->
 </div>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/hud.css') }}">
+<script src="{{ url_for('static', filename='js/shop.js') }}"></script>

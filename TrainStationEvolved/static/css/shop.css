@@ -1,0 +1,66 @@
+.optionShop {
+    gap: 10px;
+
+    padding: 12px;
+    border-bottom: 1px solid #333;
+
+    background-color: rgb(67, 67, 67);
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    height: 48px;
+}
+.optionShop button {
+    padding: 6px 14px;
+    border-radius: 999px;
+
+    background-color: #fafafa;
+    border: 2px solid #292929;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.optionShop button:hover {
+    background-color: #dfdfdf;
+}
+
+.optionShop button:active {
+    background-color: #0084cb;
+    color: #fff;
+}
+.displayShopItems {
+    flex: 1; /* ocupa todo o espaço restante */
+    display: flex;
+    flex-direction: row;
+    align-items: stretch; /* 🔥 faz os cards ocuparem toda a altura */
+    gap: 12px;
+
+    padding: 12px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    box-sizing: border-box;
+}
+.shopItem {
+    min-width: 220px;      /* largura fixa mínima */
+    height: 100%;          /* ocupa a altura total do container */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background: #1c1c1c;
+    border-radius: 10px;
+    padding: 10px;
+
+    box-sizing: border-box;
+}
+.shopItem img {
+    max-width: 200px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 8px;
+}

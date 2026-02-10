@@ -38,3 +38,6 @@
 .btnClose:hover {
     color: red;
 }
+.hidden {
+    display: none;
+}

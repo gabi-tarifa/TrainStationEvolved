@@ -23,3 +23,9 @@ btnTrains.addEventListener("click", () => {
 btnShop.addEventListener("click", () => {
     loadScreen("/page/shop");
 })
+function updateXP(level, xp, xpNeeded) {
+    document.getElementById("levelnumber").textContent = level
+    const bar = document.getElementById("progressLevel");
+    bar.max = xpNeeded;
+    bar.value = xp;
+}
