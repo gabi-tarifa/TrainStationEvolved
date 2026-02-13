@@ -4,7 +4,7 @@ from flask import app, render_template, redirect, url_for, flash, jsonify, reque
 from flask_login import current_user, login_required, LoginManager, login_user, logout_user
 from flask_cors import CORS
 from models import db, User, Locomotive, TypeLoco, TrainWagon, Train, Wagon, Material, RawMaterial, FactoryMaterial
-from models import Destination, UserLoco, WagonUser, CargoWagon, PassengerWagon
+from models import Destination, UserLoco, WagonUser, CargoWagon, PassengerWagon, MaterialUser
 import pymysql
 from werkzeug.security import generate_password_hash, check_password_hash
 from setup.setup_destinations import create_destinations
@@ -345,6 +345,112 @@ def apply_xp(user, gained_xp):
         "leveled_up": leveled_up,
         "levels_gained": levels_gained
     }
+
+@app.route("/page/warehouse")
+def warehouse():
+    locos_data = []
+    cargo_data = []
+    pass_data = []
+
+    ownedLocos = (db.session.query(Locomotive, UserLoco, TypeLoco)
+                  .join(UserLoco, Locomotive.id_loco == UserLoco.id_loco)     # get all the loco
+                  .join(TypeLoco, Locomotive.id_type == TypeLoco.id_type)     # that user owns
+                  .filter(UserLoco.id_user == current_user.id).all())
+    ownedCargo = (db.session.query
+                  (CargoWagon, WagonUser, Material)
+                  .join(WagonUser, CargoWagon.id_material == WagonUser.id_wagon)
+                  .join(Material, CargoWagon.id_material == Material.id_material)                   # get all the cargo wagons
+                  .filter(WagonUser.id_user == current_user.id).all())                              # that user owns
+    ownedPass = (db.session.query
+                  (Wagon, WagonUser).join(WagonUser, Wagon.id_wagon == WagonUser.id_wagon)          # get all the passengers wagons
+                  .filter(Wagon.kind == "passenger", WagonUser.id_user == current_user.id).all())   # that user owns
+    for loco, ownloco, typeloco in ownedLocos:
+
+        locos_data.append({
+            "id": loco.id_loco,
+            "name": loco.name,
+            "power": loco.power,
+            "profit": typeloco.profit,
+            "price": loco.price,
+            "image": loco.model,
+            "type": typeloco.name,
+            "tax_send": loco.tax_send,
+            "quantity": ownloco.quantity
+        })
+    for cargowagon, owncargo, material in ownedCargo:
+        cargo_data.append({
+            "id": cargowagon.id_wagon,
+            "name": cargowagon.name,
+            "profit": cargowagon.profit,
+            "price": cargowagon.price,
+            "image": cargowagon.model,
+            "material": material.name,
+            "quantity": owncargo.quantity
+
+        })
+    for passwagon, ownpass in ownedPass:
+        pass_data.append({
+            "id": passwagon.id_wagon,
+            "name": passwagon.name,
+            "profit": passwagon.profit,
+            "price": passwagon.price,
+            "image": passwagon.model,
+            "passengers": passwagon.passengers,
+            "mail": passwagon.mail,
+            "owned": ownpass.quantity
+        })
+
+
+    return render_template("page/warehouse.html", locos=locos_data, cargowagons=cargo_data, passwagons = pass_data)
+
+@app.route("/hud/tool/materials")
+def materials():
+    raw_materials = RawMaterial.query.all()
+    fac_materials = FactoryMaterial.query.all()
+
+    print(raw_materials)
+    print(fac_materials)
+
+    raw_mats_data = []
+    fac_mats_data = []
+
+    for mat in raw_materials:
+        ownmat = MaterialUser.query.filter_by(
+            id_user=current_user.id,
+            id_material=mat.id_material
+        ).first()
+
+        locked = current_user.level < mat.unlocking_level
+
+        raw_mats_data.append({
+            "id": mat.id_material,
+            "name": mat.name,
+            "icon": mat.icon,
+            "quantity": ownmat.quantity if ownmat else 0,
+            "locked": locked,
+            "level_unlocking": mat.unlocking_level,
+        })
+
+    for mat in fac_materials:
+        ownmat = MaterialUser.query.filter_by(
+            id_user=current_user.id,
+            id_material=mat.id_material
+        ).first()
+
+        locked = current_user.level < mat.unlocking_level
+
+        fac_mats_data.append({
+            "id": mat.id_material,
+            "name": mat.name,
+            "icon": mat.icon,
+            "quantity": ownmat.quantity if ownmat else 0,
+            "locked": locked,
+            "level_unlocking": mat.unlocking_level,
+        })
+
+    return render_template("hud/tool/materials.html", raw_materials=raw_mats_data, fac_materials = fac_mats_data)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,0 +1,97 @@
+<div class="darkBG">
+    <div class="divTrains">
+        <header class="optionWH">
+            <button id="btnLoco" onclick="toggleScreen('train')">Locomotives</button>
+            <button id="btnCargoWagon" onclick="toggleScreen('cargo')">Cargo Wagons</button>
+            <button id="btnPassWagon" onclick="toggleScreen('pass')">Gold Wagons</button>
+            <span class="btnClose" id="btnClose" onclick="closeTab()">x</span>
+        </header>
+        <div class="displayWarehouseItems" id="trains">
+            {% for loco in locos %}
+            <div class="warehouseItem
+                {% if loco.locked %} locked {% elif not loco.affordable %} noMoney {% endif %}">
+
+                <img src="{{ url_for('static', filename=loco.image) }}">
+
+                <strong>{{ loco.name }}</strong>
+
+                <div class="quantity">
+                Quantity: {{ loco.quantity }}
+                </div>
+
+                <div class="stats">
+                    ⚡ {{ loco.power }}
+                </div>
+
+                <div class="profit">
+                    Profit: +{{ loco.profit }}%
+                </div>
+                
+                <button type="button"> Use </button>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="displayWarehouseItems hidden" id="cargowagons">
+            {% for cargowagon in cargowagons %}
+            <div class="warehouseItem
+                {% if cargowagon.locked %} locked {% elif not cargowagon.affordable %} noMoney {% endif %}">
+
+                <img src="{{ url_for('static', filename=cargowagon.image) }}">
+
+                <strong>{{ cargowagon.name }}</strong>
+
+                <div class="material">
+                Material: {{ cargowagon.material }}
+                </div>
+
+                <div class="quantity">
+                Quantity: {{ cargowagon.quantity }}
+                </div>
+
+                <div class="profit">
+                    Profit: +{{ cargowagon.profit }}%
+                </div>
+
+                <button type="button"> Use </button>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="displayWarehouseItems hidden" id="passwagons">
+            {% for passwagon in passwagons %}
+            <div class="warehouseItem
+                {% if passwagon.locked %} locked {% elif not passwagon.affordable %} noMoney {% endif %}">
+
+                <img src="{{ url_for('static', filename=passwagon.image) }}">
+
+                <strong>{{ passwagon.name }}</strong>
+                
+                <div class="passengers">
+                    Passengers: {{ passwagon.passengers }}
+                </div>
+
+                <div class="mail">
+                    Mail: {{ passwagon.mail }}
+                </div>
+
+                <div class="quantity">
+                Quantity: {{ passwagon.quantity }}
+                </div>
+                
+                <div class="xp_buy">
+                XP per purchase: {{ passwagon.xp_buy }}
+                </div>
+
+                <div class="profit">
+                    Profit: +{{ passwagon.profit }}%
+                </div>
+
+                <button type="button"> Use </button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/universalcss.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/warehouse.css') }}">

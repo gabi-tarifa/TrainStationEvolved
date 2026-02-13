@@ -1,0 +1,58 @@
+<div class="darkBG">
+    <div class="divTrains">
+        <header class="optionMat">
+            <button id="btnRaw" onclick="toggleScreen('raw')">Raw Materials</button>
+            <button id="btnFac" onclick="toggleScreen('fac')">Factory Materials</button>
+            <span class="btnClose" id="btnClose" onclick="closeTab()">x</span>
+        </header>
+        <div class="materials-grid" id="rawmats">
+            {% for material in raw_materials %}
+            <div class="material-card {% if material.locked %}locked{% endif %}">
+
+                <div class="material-name">
+                    {{ material.name }}
+                </div>
+
+                <div class="material-icon">
+                    <img src="{{ url_for('static', filename=material.icon) }}" alt="{{ material.name }}">
+                </div>
+
+                <div class="material-info">
+                    {% if not material.locked %}
+                        {{ material.quantity }}
+                    {% else %}
+                        Desbloqueia no nível {{ material.level_unlocking }}
+                    {% endif %}
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        <div class="materials-grid hidden" id="facmats">
+            {% for material in fac_materials %}
+            <div class="material-card {% if material.locked %}locked{% endif %}">
+
+                <div class="material-name">
+                    {{ material.name }}
+                </div>
+
+                <div class="material-icon">
+                    <img src="{{ url_for('static', filename=material.icon) }}" alt="{{ material.name }}">
+                </div>
+
+                <div class="material-info">
+                    {% if not material.locked %}
+                        {{ material.quantity }}
+                    {% else %}
+                        Desbloqueia no nível {{ material.level_unlocking }}
+                    {% endif %}
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/materials.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/universalcss.css') }}">

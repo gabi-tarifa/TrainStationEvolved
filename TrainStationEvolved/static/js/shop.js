@@ -31,24 +31,3 @@ function updateGold(newGold) {
         }
     })
 }
-
-function toggleScreen(tipo) {
-
-    screenTrains = document.getElementById("trains");
-    screenCargoWagons = document.getElementById("cargowagons");
-    screenPassWagons = document.getElementById("passwagons");
-
-  if (tipo == "train") {
-    screenTrains.classList.remove("hidden");
-    screenCargoWagons.classList.add("hidden");
-    screenPassWagons.classList.add("hidden");
-  } else if (tipo == "cargo") {
-    screenTrains.classList.add("hidden");
-    screenCargoWagons.classList.remove("hidden");
-    screenPassWagons.classList.add("hidden");
-  } else {
-    screenTrains.classList.add("hidden");
-    screenCargoWagons.classList.add("hidden");
-    screenPassWagons.classList.remove("hidden");
-  }
-}

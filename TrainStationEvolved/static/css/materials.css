@@ -1,0 +1,104 @@
+.materials-container {
+    width: 90%;
+    margin: 40px auto;
+}
+
+.section-title {
+    margin: 40px 0 20px 10px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #e2e2e2;
+}
+
+/* GRID 5 POR FILEIRA */
+.materials-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+/* CARD */
+.material-card {
+    background-color: #1e1e2f;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    transition: 0.2s ease-in-out;
+    border: 1px solid #2c2c3e;
+}
+
+.material-card:hover {
+    transform: translateY(-4px);
+    border-color: #4fa3ff;
+}
+
+/* NOME */
+.material-name {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* ICONE */
+.material-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+}
+
+.material-icon img {
+    max-height: 70px;
+    max-width: 70px;
+}
+
+/* INFO */
+.material-info {
+    margin-top: 12px;
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+/* BLOQUEADO */
+.material-card.locked {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    cursor: not-allowed;
+}
+
+.material-card.locked:hover {
+    transform: none;
+    border-color: #2c2c3e;
+}.optionMat {
+    gap: 10px;
+
+    padding: 12px;
+    border-bottom: 1px solid #333;
+
+    background-color: rgb(67, 67, 67);
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    height: 48px;
+}
+.optionMat button {
+    padding: 6px 14px;
+    border-radius: 999px;
+
+    background-color: #fafafa;
+    border: 2px solid #292929;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.optionMat button:hover {
+    background-color: #dfdfdf;
+}
+
+.optionMat button:active {
+    background-color: #0084cb;
+    color: #fff;
+}
